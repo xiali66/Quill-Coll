@@ -33,7 +33,7 @@ const curPage = ref<'quill' | 'prosemirror'>('quill')
 }
 
 .appMain {
-  width: auto;
+  width: 1000px;
   height: auto;
   padding: 20px;
 }
@@ -56,3 +56,4 @@ const curPage = ref<'quill' | 'prosemirror'>('quill')
   color: #4174e0;
 }
 </style>
+

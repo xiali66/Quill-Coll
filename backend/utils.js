@@ -213,11 +213,16 @@ const closeConn = (doc, conn) => {
     const controlledIds = doc.conns.get(conn)
     doc.conns.delete(conn)
     awarenessProtocol.removeAwarenessStates(doc.awareness, Array.from(controlledIds), null)
-    if (doc.conns.size === 0 && persistence !== null) {
+    console.log(doc.name, doc.conns.size)
+    console.log(persistence)
+    
+    if (doc.conns.size === 0 ) {
+      console.log('销毁===>', doc.name)
       // if persisted, we store state and destroy ydocument
-      persistence.writeState(doc.name, doc).then(() => {
+      // persistence.writeState(doc.name, doc).then(() => {
+        persistence !== null && persistence.provider.clearDocuemnt(doc.name)
         doc.destroy()
-      })
+      // })
       docs.delete(doc.name)
     }
   }
@@ -252,8 +257,10 @@ export const setupWSConnection = (conn, req, { docName = (req.url || '').slice(1
   // get doc, initialize if it does not exist yet
   const doc = getYDoc(docName, gc)
   doc.conns.set(conn, new Set())
+  console.log(docs.get(doc.name))
   // listen and reply to events
-  conn.on('message', /** @param {ArrayBuffer} message */ message => messageListener(conn, doc, new Uint8Array(message)))
+  conn.on('message', /** @param {ArrayBuffer} message */ message => {
+    messageListener(conn, doc, new Uint8Array(message))})
 
   // Check if connection is still alive
   let pongReceived = true

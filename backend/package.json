@@ -2,13 +2,15 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "start.js",
   "type": "module",
+  "bin": "start.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node index.js"
+    "dev": "node start.js"
   },
   "dependencies": {
+    "esbuild": "^0.25.4",
     "lib0": "^0.2.102",
     "y-protocols": "^1.0.5"
   },
